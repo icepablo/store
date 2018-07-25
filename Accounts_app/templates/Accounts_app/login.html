@@ -1,0 +1,36 @@
+{%extends 'home.html'%}
+
+{%block content%}
+
+    <main role="main">
+
+      <section class="jumbotron text-center">
+        <div class="container" style="border: 1px solid rgb(51,51,68); width:350px; padding:10px; border-radius:10px; background-color:white">
+         {% if error %}
+          {{ error }}
+          <br />
+          <br />
+          {% endif %}
+            <h4>Logowanie</h4>
+            <br>
+          <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+              <label>Nazwa użytkownika</label>
+            <br/>
+            <input type="text" name="username" style="border:1px solid grey; border-radius:10px; height:35px;padding:5px;"/>
+            <br/>
+            <label>Hasło</label>
+            <br/>
+            <input type="password" name="password" style="border:1px solid grey; border-radius:10px; height:35px; padding:5px;"/>
+            <br/>
+
+            <br/>
+            <br/>
+            <input class="btn btn-primary" type="submit" value="Zaloguj się">
+          </form>
+        </div>
+      </section>
+
+    </main>
+
+    {%endblock%}

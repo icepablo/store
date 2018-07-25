@@ -1,0 +1,96 @@
+<head xmlns="http://www.w3.org/1999/html">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+    <title>Sklep</title>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+
+    <!-- Custom styles for this template -->
+    <link href="pricing.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <header>
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+      <a href="{% url 'home' %}" class="my-0 mr-md-auto font-weight-normal" style="color:black; font-size:26px" >Sklep</a>
+      {% if user.is_authenticated %}
+      <a class="p-2 text-dark" href="{% url 'user_order' %}">Moje konto</a>
+      <a class="p-2 text-dark" href="javascript:{document.getElementById('logout').submit()}">Wyloguj się</a>
+      <form id="logout" method="POST" action="{% url 'logout' %}">
+      {%csrf_token%}
+        <input type="hidden"/>
+      </form>
+      {% else %}
+      <a class="p-2 text-dark" href="{% url 'signup' %}">Zarejestruj się</a>
+      <a class="btn btn-outline-primary" href="{% url 'login' %}">Zaloguj się</a>
+      {% endif %}
+    </div>
+        </header>
+        {%block content%}
+
+    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+      <h1 class="display-4">Sklep</h1>
+      <p class="lead">Wyszukuj i dodawaj produkty do koszyka lub skorzystaj z filtrowania</p>
+        <a href="{% url 'search' %}" class="my-0 md-auto font-weight-normal" style="color:black; font-size:26px" >Przejdź do filtrowania</a>
+    </div>
+
+    <div class="album py-5 bg-light">
+        <div class="container">
+          <div class="row">
+            {%for product in products.all%}
+
+      <div class="card-deck mb-3 text-center" style="margin:3px">
+        <div class="card mb-4 box-shadow" >
+          <div class="card-header">
+            <h4 class="my-0 font-weight-normal">{{product.name}}</h4>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title">{{product.price}}$ </h1>
+            <ul class="list-unstyled mt-3 mb-4">
+              <li>Kategoria: {{product.item_category.category_name}}</li>
+              <li>Dostępnych egzemplarzy: {{product.in_stock}}</li>
+                <div class="row" style="margin-top:10px;">
+                    <div style="margin-left: auto; margin-right:auto;display:block">
+                <button style="margin-right:10px;" >-</button>
+                    {{product.quantity}}
+                    <button style="margin-left:10px; ">+</button>
+                    </div>
+                </div>
+            </ul>
+              <form id="borrow" method="POST" action="{% url 'borrow' %}">
+                          <div class="row align-items-center justify-content-center">
+                          <a href="javascript:{document.getElementById('wypozycz').submit()}"><button class="btn btn-lg btn-block btn-outline-primary"><span class="oi oi-caret-top"></span>Dodaj do koszyka</button></a>
+                          </div>
+                            {% csrf_token%}
+                          <input type="hidden" value='{{ product.id }}' name='prod_id'>
+                    </form>
+          </div>
+        </div>
+      </div>
+            {% endfor %}
+
+          </div>
+        </div>
+      </div>
+        {% endblock %}
+
+
+      <footer class="text-muted">
+      <div class="container text-center">
+        <p>{%now "Y"%}</p>
+      </div>
+    </footer>
+</body>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+
+    </script>
+
+</html>

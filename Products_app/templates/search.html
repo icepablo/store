@@ -1,0 +1,57 @@
+{%extends 'home.html'%}
+
+{%block content%}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+      <h1 class="display-4">Filtrowanie produktów</h1>
+      <p class="lead">Szukaj produktów w przedziałach cenowych i kategoriach</p>
+    </div>
+<div style="padding-left:80px;">
+<form action="" method="get">
+        <div class="row">
+        {{ filter.form.as_p }}
+        </div>
+    <div class="container text-center" style="padding-right:80px;">
+            <input type="submit" value="filtruj"/>
+    </div>
+    </form>
+</div>
+    <br>
+    <div class="album py-5 bg-light">
+        <div class="container">
+          <div class="row">
+
+    {% for obj in filter.qs %}
+        <div class="card-deck mb-3 text-center" style="margin:3px">
+        <div class="card mb-4 box-shadow">
+          <div class="card-header">
+            <h4 class="my-0 font-weight-normal">{{obj.name}}</h4>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title">{{obj.price}}$ </h1>
+            <ul class="list-unstyled mt-3 mb-4">
+              <li>Kategoria: {{obj.item_category.category_name}}</li>
+              <li>Dostępnych egzemplarzy: {{obj.in_stock}}</li>
+                <div class="row" style="margin-top:10px;">
+                    <div style="margin-left: auto; margin-right:auto;display:block">
+                <button style="margin-right:10px;" >-</button>
+                    {{obj.quantity}}
+                    <button style="margin-left:10px; ">+</button>
+                    </div>
+                </div>
+            </ul>
+              <form id="borrow" method="POST" action="{% url 'borrow' %}">
+                          <div class="row align-items-center justify-content-center">
+                          <a href="javascript:{document.getElementById('wypozycz').submit()}"><button class="btn btn-lg btn-block btn-outline-primary"><span class="oi oi-caret-top"></span>Dodaj do koszyka</button></a>
+                          </div>
+                            {% csrf_token%}
+                          <input type="hidden" value='{{ product.id }}' name='prod_id'>
+                    </form>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+            </div>
+        </div>
+      </div>
+
+{%endblock%}
