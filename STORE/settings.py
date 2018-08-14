@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'Orders_app.apps.OrdersAppConfig',
     'Products_app.apps.ProductsAppConfig',
     'Accounts_app.apps.AccountsAppConfig',
+
     'widget_tweaks',
+
 
 ]
 

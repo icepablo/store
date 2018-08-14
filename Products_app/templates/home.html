@@ -60,13 +60,15 @@
                     </div>
                 </div>
             </ul>
-              <form id="borrow" method="POST" action="{% url 'borrow' %}">
-                          <div class="row align-items-center justify-content-center">
-                          <a href="javascript:{document.getElementById('wypozycz').submit()}"><button class="btn btn-lg btn-block btn-outline-primary"><span class="oi oi-caret-top"></span>Dodaj do koszyka</button></a>
-                          </div>
-                            {% csrf_token%}
-                          <input type="hidden" value='{{ product.id }}' name='prod_id'>
-                    </form>
+
+                <form id="add_to_cart" method="POST" action="{% url 'add_to_cart' product.id %}">
+          {% csrf_token%}
+                    <div class="row align-items-center justify-content-center">
+              <a href="javascript:{document.getElementById('add_to_cart').submit()}"><button class="btn btn-primary btn-lg btn-block"><span class="oi oi-caret-top"></span> Dodaj do koszyka</button></a>
+          </div>
+          <input type="hidden">
+        </form>
+
           </div>
         </div>
       </div>
