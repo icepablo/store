@@ -10,6 +10,5 @@ urlpatterns = [
     path('home/', Products_app.views.home, name='home'),
     path('my_order/', Orders_app.views.user_order, name='user_order'),
     path('accounts/', include('Accounts_app.urls'), name='accounts'),
-    path('search/', Products_app.views.search, name='search'),
     path('home/add_to_cart/<product_id>/', Products_app.views.add_to_cart, name='add_to_cart'),
 ]

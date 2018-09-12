@@ -1,0 +1,50 @@
+body {
+ background: linear-gradient(to right, #374785 -15%, #a8d0e6 53%) !important;
+}
+
+header {
+background-color: #374785 !important;
+}
+
+.changeBgr{
+ background: linear-gradient(to right, #374785 -15%, #a8d0e6 53%) !important;
+}
+
+input{
+border-radius:5px;
+border: 1px solid rgb(190,190,190);
+margin: 5px;
+
+}
+
+select{
+border-radius:5px;
+border: 1px solid rgb(190,190,190);
+margin: 5px;
+padding:3px;
+}
+
+
+input[type="submit"] {
+    cursor: pointer;
+    padding:10px;
+    padding-left:15px;
+    padding-right:15px;
+    text-transform: capitalize;
+    font-size:15px;
+}
+
+.btn-block{
+padding-left:10px !important;
+padding-right:10px !important;
+margin-bottom:-35px !important;}
+
+.btn-mini{
+border: 1px solid rgb(190,190,190);
+padding:0px;
+width:25px;
+font-size:16px;}
+
+.carousel-indicators{
+margin-bottom:-10px !important;}
+

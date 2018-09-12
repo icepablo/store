@@ -1,12 +1,12 @@
 {%extends 'home.html'%}
 
 {%block content%}
-
+{% load static %}
 
 <div class="container">
       <div class="py-5 text-center">
-        <img class="d-block mx-auto mb-4" src="../../assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-        <h2>Zamównienie</h2>
+        <img class="d-block mx-auto mb-4" src="{% static 'x.svg' %}" alt="" width="72" height="72">
+        <h2>Zamówienie</h2>
         <p class="lead">Sprawdź koszyk</p>
       </div>
 
@@ -23,19 +23,17 @@
                 <h6 class="my-0">{{order.item_name.name}}</h6>
                 <small class="text-muted">{{order.item_name.item_category.category_name}}</small>
               </div>
+              <span class="badge badge-secondary badge-pill" style="margin-left: auto; margin-right: 20px; width:30px; border-radius:20px">{{order.quantity}}</span>
               <span class="text-muted">{{order.item_name.price}}$</span>
             </li>
               {%endfor%}
           </ul>
 
-          <form class="card p-2">
+
             <div class="input-group">
-              <input type="text" class="form-control" placeholder="Promo code">
-              <div class="input-group-append">
-                <button type="submit" class="btn btn-secondary">Kod rabatowy</button>
-              </div>
+                <button type="submit" class="btn btn-secondary">Suma: {{ cost }} $</button>
             </div>
-          </form>
+
 
         </div>
         <div class="col-md-8 order-md-1">
@@ -78,7 +76,7 @@
               </div>
 
               <div class="col-md-3 mb-3">
-                <label for="zip">Zip</label>
+                <label for="zip">Kod pocztowy</label>
                 <input type="text" class="form-control" id="zip" placeholder="77-555">
               </div>
             </div>
@@ -91,8 +89,7 @@
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="cc-name">Na karcie</label>
-                <input type="text" class="form-control" id="cc-name" placeholder="" required>
-                <small class="text-muted">Pełne imię i nazwisko na karcie</small>
+                <input type="text" class="form-control" id="cc-name" placeholder="Pełne imię i nazwisko na karcie" required>
 
               </div>
               <div class="col-md-6 mb-3">
@@ -112,7 +109,7 @@
               </div>
             </div>
             <hr class="mb-4">
-            <button class="btn btn-primary btn-lg btn-block" type="submit">Zakończ zakupy</button>
+            <button class="btn btn-primary btn-lg btn-block" style="width:150px; margin-left:auto; margin-right:auto" type="submit">Zakończ zakupy</button>
           </form>
         </div>
       </div>

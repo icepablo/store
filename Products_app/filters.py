@@ -12,9 +12,4 @@ class ProductFilter(django_filters.FilterSet):
             'price': ['gt', 'lt'],
         }
 
-    '''
-    name = django_filters.CharFilter(lookup_expr='iexact')
-    class Meta:
-        model = Product
-        fields = ['price', 'release_date']
-    '''
+
