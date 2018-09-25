@@ -39,8 +39,9 @@ def add_to_cart(request, product_id):
         product_object = get_object_or_404(Product, pk=product_id)
         user_object = User.objects.get(id=request.user.id)
         order_object = Order()
+        orders_filter = Order.objects.values('item_name', 'id').filter(customer__exact=user_object)
 
-        if product_object.in_stock > 0:
+        def make_order():
             order_object.item_name = product_object
             order_object.customer = user_object
             order_object.quantity = product_object.quantity
@@ -48,5 +49,22 @@ def add_to_cart(request, product_id):
             product_object.in_stock -= product_object.quantity
             product_object.quantity = 1
             product_object.save()
+
+        if product_object.in_stock > 0:
+            if orders_filter:
+                for product in orders_filter:
+                    if product['item_name'] == product_object.id:
+                        add_to_order = get_object_or_404(Order, pk=product['id'])
+                        add_to_order.quantity += product_object.quantity
+                        add_to_order.save()
+                        product_object.in_stock -= product_object.quantity
+                        product_object.quantity = 1
+                        product_object.save()
+                    else:
+                        make_order()
+            else:
+                make_order()
+
+
 
     return redirect('/home/')
